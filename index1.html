@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Astoria | A Magazine for Women</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--ivory:#FAF7F2;--espresso:#1C1410;--rose:#C4927A;--sage:#8A9E8C;--gold:#C9A96E;--rose-light:#F2E8E2;--text-muted:#7A6F68;--rule:#D8C9BC;}
+html{scroll-behavior:smooth}
+body{background:var(--ivory);color:var(--espresso);font-family:"Jost",sans-serif;font-weight:300}
+a{text-decoration:none;color:inherit}
+nav{background:var(--ivory);border-bottom:0.5px solid var(--rule);position:sticky;top:0;z-index:100}
+.nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;height:64px}
+.nav-logo{display:flex;align-items:center;gap:0.75rem;cursor:pointer;text-decoration:none}
+.nav-logo-text{font-family:"Playfair Display",serif;font-size:1.5rem;font-weight:500;letter-spacing:0.04em;color:var(--espresso)}
+.nav-logo-text span{color:var(--rose)}
+.nav-links{display:flex;gap:2rem;align-items:center}
+.nav-links a{font-size:0.72rem;letter-spacing:0.14em;text-transform:uppercase;font-weight:500;color:var(--text-muted);transition:color 0.2s}
+.nav-links a:hover{color:var(--espresso)}
+.btn-subscribe{background:var(--espresso);color:var(--ivory);font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;font-weight:500;padding:0.5rem 1.2rem;border:none;cursor:pointer;font-family:"Jost",sans-serif;transition:background 0.2s}
+.btn-subscribe:hover{background:var(--rose)}
+.hero{background:var(--espresso);min-height:580px;display:flex;align-items:center;position:relative;overflow:hidden}
+.hero-bg-text{position:absolute;right:-2rem;top:50%;transform:translateY(-50%);font-family:"Playfair Display",serif;font-size:18rem;font-weight:700;color:rgba(255,255,255,0.03);line-height:1;pointer-events:none;user-select:none;white-space:nowrap}
+.hero-inner{max-width:1200px;margin:0 auto;padding:4rem 2rem;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;width:100%}
+.hero-eyebrow{font-size:0.68rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:1.2rem;display:flex;align-items:center;gap:0.75rem}
+.hero-eyebrow::before{content:"";display:block;width:28px;height:0.5px;background:var(--gold)}
+.hero-headline{font-family:"Playfair Display",serif;font-size:3.6rem;font-weight:400;line-height:1.1;color:#FAF7F2;margin-bottom:1.5rem}
+.hero-headline em{font-style:italic;color:var(--rose)}
+.hero-sub{font-size:0.95rem;line-height:1.75;color:rgba(250,247,242,0.65);max-width:420px;margin-bottom:2rem}
+.hero-cta{display:inline-block;border:0.5px solid rgba(250,247,242,0.35);color:var(--ivory);font-size:0.7rem;letter-spacing:0.16em;text-transform:uppercase;font-weight:500;padding:0.85rem 2rem;transition:all 0.2s;cursor:pointer}
+.hero-cta:hover{background:var(--rose);border-color:var(--rose)}
+.hero-featured-card{background:rgba(250,247,242,0.04);border:0.5px solid rgba(250,247,242,0.1);padding:2rem;cursor:pointer}
+.hero-card-img{width:100%;height:240px;background:linear-gradient(135deg,#3a2a22 0%,#5a3d30 50%,#2c1f19 100%);display:flex;align-items:center;justify-content:center;margin-bottom:1.5rem;overflow:hidden}
+.hero-card-img img{width:100%;height:100%;object-fit:cover;display:block}
+.hero-card-img-placeholder{font-family:"Playfair Display",serif;font-size:3rem;font-style:italic;color:rgba(250,247,242,0.15)}
+.hero-card-cat{font-size:0.63rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--rose);font-weight:500;margin-bottom:0.6rem}
+.hero-card-title{font-family:"Playfair Display",serif;font-size:1.45rem;font-weight:400;line-height:1.25;color:var(--ivory);margin-bottom:0.75rem}
+.hero-card-excerpt{font-size:0.85rem;color:rgba(250,247,242,0.55);line-height:1.65}
+.section{max-width:1200px;margin:0 auto;padding:4rem 2rem}
+.section-header{display:flex;align-items:baseline;justify-content:space-between;border-top:0.5px solid var(--rule);padding-top:1.2rem;margin-bottom:2.5rem}
+.section-title{font-family:"Playfair Display",serif;font-size:1.75rem;font-weight:400}
+.section-title em{font-style:italic;color:var(--rose)}
+.section-link{font-size:0.65rem;letter-spacing:0.16em;text-transform:uppercase;font-weight:500;color:var(--text-muted);border-bottom:0.5px solid var(--rule);padding-bottom:1px;cursor:pointer;transition:color 0.2s}
+.section-link:hover{color:var(--espresso)}
+.article-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2.5rem}
+.article-card{cursor:pointer}
+.article-card-img{width:100%;aspect-ratio:4/3;margin-bottom:1.1rem;overflow:hidden;display:flex;align-items:center;justify-content:center;font-family:"Playfair Display",serif;font-size:2rem;font-style:italic;transition:opacity 0.2s}
+.article-card:hover .article-card-img{opacity:0.82}
+.img-rose{background:#DEB8A4}.img-sage{background:#B5C4B7}.img-cream{background:#D8C9B4}.img-blush{background:#E8CFC2}.img-sand{background:#C9B8A2}.img-taupe{background:#BDB0A4}
+.article-cat{font-size:0.62rem;letter-spacing:0.18em;text-transform:uppercase;font-weight:500;color:var(--rose);margin-bottom:0.5rem}
+.article-title{font-family:"Playfair Display",serif;font-size:1.2rem;font-weight:400;line-height:1.3;margin-bottom:0.5rem;transition:color 0.2s}
+.article-card:hover .article-title{color:var(--rose)}
+.article-excerpt{font-size:0.82rem;color:var(--text-muted);line-height:1.65;margin-bottom:0.75rem}
+.article-meta{font-size:0.65rem;letter-spacing:0.1em;color:var(--text-muted);display:flex;align-items:center;gap:0.5rem}
+.article-meta::before{content:"";display:inline-block;width:16px;height:0.5px;background:var(--rule)}
+.featured-strip{background:#F2E8E2;border-top:0.5px solid var(--rule);border-bottom:0.5px solid var(--rule);padding:3.5rem 0}
+.featured-strip-inner{max-width:1200px;margin:0 auto;padding:0 2rem;display:grid;grid-template-columns:1fr 2fr 1fr;gap:3rem;align-items:center}
+.strip-label{font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--rose);font-weight:500;margin-bottom:0.75rem}
+.strip-quote{font-family:"Cormorant Garamond",serif;font-size:2rem;font-weight:300;font-style:italic;line-height:1.35;color:var(--espresso);text-align:center}
+.topics-band{background:var(--espresso);padding:2rem 0}
+.topics-inner{max-width:1200px;margin:0 auto;padding:0 2rem;display:flex;align-items:center;overflow-x:auto}
+.topic-pill{flex-shrink:0;font-size:0.65rem;letter-spacing:0.16em;text-transform:uppercase;font-weight:500;color:rgba(250,247,242,0.5);padding:0.5rem 1.5rem;border-right:0.5px solid rgba(250,247,242,0.12);transition:color 0.2s;cursor:pointer;white-space:nowrap}
+.topic-pill:first-child{border-left:0.5px solid rgba(250,247,242,0.12)}
+.topic-pill:hover,.topic-pill.active{color:var(--gold)}
+.membership{background:var(--espresso);padding:5rem 0}
+.membership-inner{max-width:900px;margin:0 auto;padding:0 2rem;text-align:center}
+.membership-eyebrow{font-size:0.65rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:1.2rem}
+.membership-title{font-family:"Playfair Display",serif;font-size:2.8rem;font-weight:400;color:var(--ivory);line-height:1.15;margin-bottom:1.2rem}
+.membership-title em{font-style:italic;color:var(--rose)}
+.membership-sub{font-size:0.95rem;line-height:1.8;color:rgba(250,247,242,0.6);max-width:560px;margin:0 auto 2.5rem}
+.membership-cards{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:2.5rem;text-align:left}
+.membership-card{border:0.5px solid rgba(250,247,242,0.12);padding:1.5rem}
+.membership-card-icon{font-size:0.68rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--rose);font-weight:500;margin-bottom:0.75rem}
+.membership-card-title{font-family:"Playfair Display",serif;font-size:1.1rem;font-weight:400;color:var(--ivory);margin-bottom:0.5rem}
+.membership-card-text{font-size:0.82rem;line-height:1.65;color:rgba(250,247,242,0.5)}
+.btn-join{background:var(--rose);color:var(--ivory);font-size:0.7rem;letter-spacing:0.14em;text-transform:uppercase;font-weight:500;padding:0.9rem 2.5rem;border:none;cursor:pointer;font-family:"Jost",sans-serif;transition:background 0.2s}
+.btn-join:hover{background:#b07560}
+.newsletter{border-top:0.5px solid var(--rule);padding:4rem 0}
+.newsletter-inner{max-width:600px;margin:0 auto;padding:0 2rem;text-align:center}
+.newsletter-eyebrow{font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--rose);font-weight:500;margin-bottom:0.75rem}
+.newsletter-title{font-family:"Playfair Display",serif;font-size:2rem;font-weight:400;margin-bottom:0.75rem}
+.newsletter-sub{font-size:0.85rem;line-height:1.7;color:var(--text-muted);margin-bottom:2rem}
+.gold-divider{width:32px;height:0.5px;background:var(--gold);margin:0 auto 2rem}
+.newsletter-form{display:flex;gap:0;max-width:420px;margin:0 auto}
+.newsletter-input{flex:1;border:0.5px solid var(--rule);background:white;padding:0.75rem 1rem;font-size:0.82rem;font-family:"Jost",sans-serif;outline:none}
+.newsletter-input:focus{border-color:var(--rose)}
+.newsletter-btn{background:var(--espresso);color:var(--ivory);border:none;padding:0.75rem 1.25rem;font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;font-weight:500;font-family:"Jost",sans-serif;cursor:pointer;transition:background 0.2s;white-space:nowrap}
+.newsletter-btn:hover{background:var(--rose)}
+footer{background:var(--espresso);border-top:0.5px solid rgba(250,247,242,0.1);padding:3rem 0 2rem}
+.footer-inner{max-width:1200px;margin:0 auto;padding:0 2rem}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;padding-bottom:2rem;border-bottom:0.5px solid rgba(250,247,242,0.1);margin-bottom:1.5rem}
+.footer-brand-name{font-family:"Playfair Display",serif;font-size:1.5rem;font-weight:500;color:var(--ivory);margin-bottom:0.75rem;letter-spacing:0.04em}
+.footer-brand-name span{color:var(--rose)}
+.footer-brand-desc{font-size:0.8rem;line-height:1.7;color:rgba(250,247,242,0.4);max-width:260px}
+.footer-col-title{font-size:0.62rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:1rem}
+.footer-links{list-style:none;display:flex;flex-direction:column;gap:0.5rem}
+.footer-links a{font-size:0.8rem;color:rgba(250,247,242,0.45);transition:color 0.2s}
+.footer-links a:hover{color:var(--ivory)}
+.footer-bottom{display:flex;align-items:center;justify-content:space-between}
+.footer-copy{font-size:0.72rem;color:rgba(250,247,242,0.25)}
+.social-links{display:flex;gap:1.25rem}
+.social-links a{font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(250,247,242,0.3);transition:color 0.2s}
+.social-links a:hover{color:var(--rose)}
+.article-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:var(--ivory);z-index:200;overflow-y:auto}
+.article-overlay.open{display:block}
+.article-page{max-width:720px;margin:0 auto;padding:3rem 2rem 6rem}
+.article-back{display:inline-flex;align-items:center;gap:0.5rem;font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;font-weight:500;color:var(--text-muted);margin-bottom:2.5rem;cursor:pointer;border:none;background:none;font-family:"Jost",sans-serif;transition:color 0.2s}
+.article-back:hover{color:var(--rose)}
+.article-page-cat{font-size:0.63rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--rose);font-weight:500;margin-bottom:1rem}
+.article-page-title{font-family:"Playfair Display",serif;font-size:2.6rem;font-weight:400;line-height:1.15;margin-bottom:1.2rem}
+.article-page-meta{font-size:0.75rem;color:var(--text-muted);letter-spacing:0.08em;margin-bottom:2rem;padding-bottom:1.5rem;border-bottom:0.5px solid var(--rule)}
+.article-page-img{width:100%;height:300px;margin-bottom:2.5rem;display:flex;align-items:center;justify-content:center;font-family:"Playfair Display",serif;font-size:4rem;font-style:italic;color:rgba(28,20,16,0.2);overflow:hidden}
+.article-page-img img{width:100%;height:100%;object-fit:cover;display:block}
+.article-page-body{font-size:1rem;line-height:1.85;color:var(--espresso)}
+.article-page-body p{margin-bottom:1.5rem}
+.article-page-body h2{font-family:"Playfair Display",serif;font-size:1.5rem;font-weight:400;margin:2.5rem 0 1rem}
+.article-page-body h3{font-family:"Playfair Display",serif;font-size:1.15rem;font-weight:400;font-style:italic;margin:1.75rem 0 0.6rem;color:var(--rose)}
+.article-page-body blockquote{border-left:2px solid var(--rose);padding:0.75rem 1.5rem;margin:2rem 0;font-family:"Cormorant Garamond",serif;font-size:1.3rem;font-style:italic;line-height:1.5}
+@media(max-width:900px){.hero-inner{grid-template-columns:1fr}.hero-featured-card{display:none}.article-grid{grid-template-columns:1fr 1fr}.featured-strip-inner{grid-template-columns:1fr}.footer-top{grid-template-columns:1fr 1fr}.nav-links{display:none}}
+@media(max-width:600px){.article-grid{grid-template-columns:1fr}.membership-cards{grid-template-columns:1fr}.hero-headline{font-size:2.4rem}.article-page-title{font-size:1.9rem}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" href="#" onclick="closeArticle()">
+      <img src="/images/logo.png" alt="Astoria Magazine" style="height:38px;width:auto;">
+    </a>
+    <div class="nav-links">
+      <a href="#wellness">Wellness</a>
+      <a href="#relationships">Relationships</a>
+      <a href="#realestate">Real Estate</a>
+      <a href="#faith">Faith &amp; Life</a>
+      <a href="#style">Style</a>
+    </div>
+    <button class="btn-subscribe" onclick="document.querySelector('.newsletter').scrollIntoView({behavior:'smooth'})">Subscribe</button>
+  </div>
+</nav>
+<section class="hero">
+  <div class="hero-bg-text">A</div>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow">Summer 2025 &nbsp;&middot;&nbsp; The Living Well Issue</div>
+      <h1 class="hero-headline">The Life You<br>Were <em>Made</em><br>to Live</h1>
+      <p class="hero-sub">For women who move with intention &mdash; in their homes, their health, and their faith. Astoria is your guide to a life of quiet luxury and deep purpose.</p>
+      <span class="hero-cta" onclick="openArticle('morning-ritual')">Read the Feature</span>
+    </div>
+    <div class="hero-featured-card" onclick="openArticle('morning-ritual')">
+      <div class="hero-card-img"><img src="/images/morning-ritual.png" alt="The Morning Ritual That Transforms Your Entire Day"></div>
+      <div class="hero-card-cat">Featured &middot; Wellness</div>
+      <h2 class="hero-card-title">The Morning Ritual That Transforms Your Entire Day</h2>
+      <p class="hero-card-excerpt">From sunrise pilates to intentional prayer &mdash; how the most grounded women structure their mornings before the world asks anything of them.</p>
+    </div>
+  </div>
+</section>
+<div class="topics-band">
+  <div class="topics-inner">
+    <div class="topic-pill active">All</div>
+    <div class="topic-pill">Wellness &amp; Body</div>
+    <div class="topic-pill">Relationships</div>
+    <div class="topic-pill">Real Estate</div>
+    <div class="topic-pill">Faith &amp; Community</div>
+    <div class="topic-pill">Style &amp; Beauty</div>
+    <div class="topic-pill">Mind &amp; Spirit</div>
+    <div class="topic-pill">Home &amp; Design</div>
+    <div class="topic-pill">Motherhood</div>
+  </div>
+</div>
+<div class="section" id="wellness">
+  <div class="section-header"><h2 class="section-title"><em>Wellness</em> &amp; Body</h2><span class="section-link">All Articles</span></div>
+  <div class="article-grid">
+    <div class="article-card" onclick="openArticle('pilates')">
+      <div class="article-card-img"><img src="/images/yoga-pilates.png" style="width:100%;height:100%;object-fit:cover;display:block;" alt="Yoga &amp; Movement"></div>
+      <div class="article-cat">Yoga &amp; Movement</div>
+      <h3 class="article-title">Why Every Woman Over 30 Is Quietly Obsessed with Pilates Right Now</h3>
+      <p class="article-excerpt">It&#39;s not just a workout. It&#39;s a full reset &mdash; for your body, your posture, and honestly, your entire relationship with yourself.</p>
+      <div class="article-meta">By Claire Ashworth &nbsp;&middot;&nbsp; 5 min read</div>
+    </div>
+    <div class="article-card" onclick="openArticle('goop')">
+      <div class="article-card-img img-rose">&#10022;</div>
+      <div class="article-cat">Clean Living</div>
+      <h3 class="article-title">We Tried Goop&#39;s Wellness Protocols for 30 Days. Here&#39;s What Actually Happened</h3>
+      <p class="article-excerpt">Some of it is noise. But some of it genuinely changed things. An honest report from someone who went in skeptical.</p>
+      <div class="article-meta">By Maren Ellis &nbsp;&middot;&nbsp; 7 min read</div>
+    </div>
+    <div class="article-card" onclick="openArticle('anti-inflammatory')">
+      <div class="article-card-img img-cream">&#9671;</div>
+      <div class="article-cat">Nutrition</div>
+      <h3 class="article-title">The Anti-Inflammatory Table: Eating for Calm, Clarity, and Real Energy</h3>
+      <p class="article-excerpt">No moralism. No deprivation. Just a whole-food approach that actually fits into a real woman&#39;s real life.</p>
+      <div class="article-meta">By Dr. Sophie Vance &nbsp;&middot;&nbsp; 6 min read</div>
+    </div>
+  </div>
+</div>
+<div class="featured-strip">
+  <div class="featured-strip-inner">
+    <div><div class="strip-label">From the Editor</div><p style="font-size:0.85rem;line-height:1.75;color:var(--text-muted)">At Astoria, we believe that a beautiful life isn&#39;t built on aesthetics alone &mdash; it&#39;s built on roots. Strong faith. Clear intentions. A home that holds meaning.</p></div>
+    <div><div class="strip-quote">&ldquo;Living well is not a luxury. It is an act of devotion to the life you&#39;ve been given.&rdquo;</div></div>
+    <div><div class="strip-label">This Month</div><p style="font-size:0.85rem;line-height:1.7;color:var(--text-muted)">Real estate markets in the most sought-after ZIP codes. Faith communities redefining modern social life. The yoga retreat that changed everything.</p></div>
+  </div>
+</div>
+<div class="section" id="relationships">
+  <div class="section-header"><h2 class="section-title"><em>Relationships</em> &amp; Marriage</h2><span class="section-link">All Articles</span></div>
+  <div class="article-grid">
+    <div class="article-card" onclick="openArticle('year-five')">
+      <div class="article-card-img img-blush">&#9825;</div>
+      <div class="article-cat">Marriage</div>
+      <h3 class="article-title">The Conversations Every Couple Needs to Have Before Year Five</h3>
+      <p class="article-excerpt">A marriage therapist shares the five questions most couples never ask &mdash; until it&#39;s too late to answer them honestly.</p>
+      <div class="article-meta">By Priya Holloway &nbsp;&middot;&nbsp; 8 min read</div>
+    </div>
+    <div class="article-card" onclick="openArticle('standards')">
+      <div class="article-card-img img-sand">&#9672;</div>
+      <div class="article-cat">Dating &amp; Intention</div>
+      <h3 class="article-title">Dating with Standards: What High-Value Women Know That Others Don&#39;t</h3>
+      <p class="article-excerpt">Moving past the idea that having standards is &ldquo;too much.&rdquo; What it actually means to know your worth &mdash; and hold it.</p>
+      <div class="article-meta">By Lena Forrest &nbsp;&middot;&nbsp; 6 min read</div>
+    </div>
+    <div class="article-card" onclick="openArticle('daughters')">
+      <div class="article-card-img img-taupe">&#10059;</div>
+      <div class="article-cat">Family Life</div>
+      <h3 class="article-title">Raising Confident Daughters in an Age That Wants to Confuse Them</h3>
+      <p class="article-excerpt">Clarity, conviction, and the conversations worth having young &mdash; for mothers who want to pass something real down.</p>
+      <div class="article-meta">By Kate Brennan &nbsp;&middot;&nbsp; 9 min read</div>
+    </div>
+  </div>
+</div>
+<div class="section" id="realestate" style="padding-top:0">
+  <div class="section-header"><h2 class="section-title"><em>Real Estate</em> &amp; Home</h2><span class="section-link">All Articles</span></div>
+  <div class="article-grid">
+    <div class="article-card" onclick="openArticle('neighborhoods')">
+      <div class="article-card-img img-cream">&#8962;</div>
+      <div class="article-cat">Market Report</div>
+      <h3 class="article-title">The Neighborhoods Women Are Quietly Flocking To in 2025</h3>
+      <p class="article-excerpt">Where the schools are exceptional, the community is tight-knit, and the values align. Top markets for intentional buyers.</p>
+      <div class="article-meta">By Astoria Editors &nbsp;&middot;&nbsp; 10 min read</div>
+    </div>
+    <div class="article-card" onclick="openArticle('quiet-luxury-home')">
+      <div class="article-card-img img-sage">&#9635;</div>
+      <div class="article-cat">Interior Design</div>
+      <h3 class="article-title">The New Quiet Luxury Home: Build a Space That Actually Restores You</h3>
+      <p class="article-excerpt">Not just aesthetics &mdash; the architecture of calm. How intentional design shapes your nervous system and your daily rhythms.</p>
+      <div class="article-meta">By Isabelle Clarke &nbsp;&middot;&nbsp; 7 min read</div>
+    </div>
+    <div class="article-card" onclick="openArticle('realtor-questions')">
+      <div class="article-card-img img-rose">&#9634;</div>
+      <div class="article-cat">Investing</div>
+      <h3 class="article-title">First Home or Fifth: The Questions Every Smart Woman Asks Her Realtor</h3>
+      <p class="article-excerpt">What to demand from your realtor, your inspector, and your own due diligence before you sign anything.</p>
+      <div class="article-meta">By Dana Whitmore &nbsp;&middot;&nbsp; 8 min read</div>
+    </div>
+  </div>
+</div>
+<div class="membership">
+  <div class="membership-inner">
+    <div class="membership-eyebrow">Astoria All Access</div>
+    <h2 class="membership-title">Read More.<br>Live <em>Better.</em></h2>
+    <p class="membership-sub">Unlimited access to every article, early releases, member-only events, and a community of women building lives worth living.</p>
+    <div class="membership-cards">
+      <div class="membership-card"><div class="membership-card-icon">&#8734; Unlimited Access</div><h3 class="membership-card-title">Every Article, Unlocked</h3><p class="membership-card-text">Full access to our archive and every new piece &mdash; no paywalls, no previews.</p></div>
+      <div class="membership-card"><div class="membership-card-icon">&#9672; Member Events</div><h3 class="membership-card-title">Curated Community</h3><p class="membership-card-text">Private dinners, retreats, and gatherings with women who share your values.</p></div>
+      <div class="membership-card"><div class="membership-card-icon">&#10022; Early Releases</div><h3 class="membership-card-title">First to Know</h3><p class="membership-card-text">New content and the Astoria Edit delivered before the public.</p></div>
+      <div class="membership-card"><div class="membership-card-icon">&#10059; Style Guides</div><h3 class="membership-card-title">Personalized Curation</h3><p class="membership-card-text">Seasonal looks, wellness routines, and home guides tailored to your life.</p></div>
+    </div>
+    <button class="btn-join">Become a Member</button>
+  </div>
+</div>
+<div class="section" id="faith">
+  <div class="section-header"><h2 class="section-title"><em>Faith</em> &amp; Community</h2><span class="section-link">All Articles</span></div>
+  <div class="article-grid">
+    <div class="article-card" onclick="openArticle('christian-events')">
+      <div class="article-card-img img-blush">&#8224;</div>
+      <div class="article-cat">Christian Life</div>
+      <h3 class="article-title">The Summer Events Redefining What Christian Community Looks Like</h3>
+      <p class="article-excerpt">From retreats in Aspen to intimate dinners in Nashville &mdash; the gatherings where faith meets the fullness of life.</p>
+      <div class="article-meta">By Rachel Monroe &nbsp;&middot;&nbsp; 5 min read</div>
+    </div>
+    <div class="article-card" onclick="openArticle('sabbath')">
+      <div class="article-card-img img-sand">&#10022;</div>
+      <div class="article-cat">Intentional Living</div>
+      <h3 class="article-title">On Sabbath, Silence, and the Radical Act of Resting Well</h3>
+      <p class="article-excerpt">What happens when high-achieving women stop performing productivity and start practicing actual rest.</p>
+      <div class="article-meta">By Anna Collins &nbsp;&middot;&nbsp; 7 min read</div>
+    </div>
+    <div class="article-card" onclick="openArticle('social-circle')">
+      <div class="article-card-img img-sage">&#9671;</div>
+      <div class="article-cat">Social Life</div>
+      <h3 class="article-title">How to Build a Social Circle That Actually Nourishes You</h3>
+      <p class="article-excerpt">Moving past performative friendships toward something richer &mdash; women creating communities rooted in shared conviction.</p>
+      <div class="article-meta">By Leigh Donovan &nbsp;&middot;&nbsp; 6 min read</div>
+    </div>
+  </div>
+</div>
+<div class="newsletter">
+  <div class="newsletter-inner">
+    <div class="newsletter-eyebrow">The Astoria Letter</div>
+    <h2 class="newsletter-title">Join Our Community</h2>
+    <div class="gold-divider"></div>
+    <p class="newsletter-sub">Weekly articles, curated reads, and quiet wisdom &mdash; delivered every Thursday morning, before the week gets away from you.</p>
+    <div class="newsletter-form">
+      <input class="newsletter-input" type="email" placeholder="Your email address">
+      <button class="newsletter-btn">Subscribe</button>
+    </div>
+  </div>
+</div>
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand-name">Astoria<span>.</span></div>
+        <p class="footer-brand-desc">A magazine for women who live with intention &mdash; in their bodies, their homes, their faith, and their relationships.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Topics</div>
+        <ul class="footer-links">
+          <li><a href="#wellness">Wellness &amp; Body</a></li>
+          <li><a href="#relationships">Relationships</a></li>
+          <li><a href="#realestate">Real Estate</a></li>
+          <li><a href="#faith">Faith &amp; Life</a></li>
+          <li><a href="#style">Style &amp; Beauty</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Magazine</div>
+        <ul class="footer-links">
+          <li><a href="#">About Astoria</a></li>
+          <li><a href="#">Editors</a></li>
+          <li><a href="#">Membership</a></li>
+          <li><a href="#">Advertise</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Follow Along</div>
+        <ul class="footer-links">
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">Pinterest</a></li>
+          <li><a href="#">Substack</a></li>
+          <li><a href="#">TikTok</a></li>
+          <li><a href="#">YouTube</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">&copy; 2025 AstoriaMag.com &middot; All rights reserved</span>
+      <div class="social-links"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Cookies</a></div>
+    </div>
+  </div>
+</footer>
+<div class="article-overlay" id="articleOverlay">
+  <div class="article-page">
+    <button class="article-back" onclick="closeArticle()">&larr; Back to Astoria</button>
+    <div id="articleContent"></div>
+  </div>
+</div>
+<script>
+var articles = {
+  "morning-ritual":{cat:"Wellness &middot; Featured",title:"The Morning Ritual That Transforms Your Entire Day",meta:"By Claire Ashworth &middot; 8 min read &middot; Wellness &amp; Body",img:"",ch:"<img src='/images/morning-ritual.png' style='width:100%;height:100%;object-fit:cover;display:block;' alt=''>",body:`<p>It's 5:47 in the morning and the house is still dark. Sarah &mdash; a mother of three, a woman who runs her own business, and someone who used to describe herself as "not a morning person" &mdash; is already on her mat. Not because she has to be. Because this hour, before anyone needs anything from her, is the only hour that is entirely hers.</p><p>She didn't arrive here easily. For years she tried to be the woman who snapped awake at 6 a.m. full of energy and gratitude, and for years she failed at it before her feet even hit the floor. The shift, she says, came when she stopped treating her morning as a productivity tool and started treating it as something closer to a prayer.</p><h2>Why Your Morning Matters More Than You Think</h2><p>There's a reason that every woman you admire &mdash; the ones who seem to move through their days with a quiet, unshakeable groundedness &mdash; tends to have some version of a morning practice. It's not a coincidence. It's a discipline that compounds over time, the same way interest compounds in an account you keep adding to.</p><p>Research consistently shows that people who begin their days with intentional, low-stimulation activity report lower cortisol levels by midmorning and better emotional regulation throughout the day. But you don't need a study to tell you that. You already know it in your body &mdash; the difference between a morning you owned and a morning that owned you.</p><blockquote>"The first hour of the day is a declaration. It tells your nervous system, your soul, and everyone around you what kind of day this is going to be."</blockquote><h2>The Four Pillars Worth Building Around</h2><h3>Movement first &mdash; even if it's ten minutes</h3><p>The women who swear by their morning practice almost universally put some form of movement at the start. Not necessarily a full workout. Pilates, a slow yoga flow, even a ten-minute walk outside in the early quiet. The goal isn't caloric burn &mdash; it's embodiment. Getting back into your body before the day begins pulling you out of it.</p><h3>Silence before screens</h3><p>This is the one that changes everything. The average American reaches for their phone within three minutes of waking. That first scroll floods your nervous system with information, other people's needs, and ambient anxiety before you've had a single thought of your own. Try 20 minutes of screen-free time first. Just 20 minutes. Most women who do this for a week describe it as the single highest-leverage change they've ever made.</p><h3>Something that feeds your spirit</h3><p>This looks different for everyone. Scripture and prayer for women of faith. A few pages of a book that actually nourishes you. A journal page. Five minutes of sitting quietly with a cup of coffee and nothing else demanded of you. The point is to give yourself access to something interior before the day begins.</p><h3>Intention-setting, not goal-tracking</h3><p>There's a difference between reviewing your task list and setting an intention for the day. One is about outputs. The other is about how you want to show up. A single sentence, written or spoken aloud, can be enough: "Today I will be patient and present with my children." Small, but it anchors you.</p><h2>Getting Started When You're Not a Morning Person</h2><p>Go to bed ten minutes earlier tonight. Set your alarm for ten minutes earlier than usual. Use those ten minutes for exactly one thing you choose. Do it for five days. Then add ten more minutes. This is how it actually works, in real life, with real constraints.</p><p>The women who have the most grounded mornings aren't the ones who had the most willpower. They're the ones who decided, quietly and without fanfare, that they were worth the first hour of the day. That decision &mdash; more than any alarm clock or wellness app &mdash; is where it starts.</p>`},
+  "pilates":{cat:"Yoga &amp; Movement",title:"Why Every Woman Over 30 Is Quietly Obsessed with Pilates Right Now",meta:"By Claire Ashworth &middot; 5 min read &middot; Wellness &amp; Body",img:"",ch:"<img src='/images/yoga-pilates.png' style='width:100%;height:100%;object-fit:cover;display:block;' alt=''>",body:`<p>Let's skip past the part where we pretend Pilates is a new discovery. It's been around for a century. But something has shifted in the last few years &mdash; specifically among women in their thirties, forties, and fifties &mdash; and it's worth talking about honestly.</p><p>The women returning to Pilates right now aren't doing it for a smaller waist. They're doing it because something in their body finally demanded to be listened to. A bad back. Postpartum core weakness that never fully resolved. A growing awareness that the high-intensity workouts they used to love were leaving them depleted rather than energized. And they found that an hour on a reformer, moving slowly and with full attention, did something none of the other things had managed: it made them feel genuinely better.</p><h2>What Pilates Actually Does That Other Workouts Don't</h2><p>Pilates trains the muscles that most forms of exercise ignore. The deep stabilizers &mdash; the transverse abdominis, the multifidus, the pelvic floor &mdash; the system of small, interior muscles that literally hold your skeleton in place. When those are weak, everything compensates. Your lower back picks up the slack your core should be providing. You end up strong in some places and completely untrained in others, and eventually your body sends you a bill for that imbalance.</p><blockquote>"Pilates isn't about burning calories. It's about rebuilding the architecture your body was always supposed to have."</blockquote><h2>The Mental Side Nobody Talks About Enough</h2><p>There is something about the quality of attention that Pilates demands that is genuinely meditative. You cannot be on your phone. You cannot be half-present. Each movement requires enough focus that your mind, if you let it, goes quiet. For women whose days are spent in near-constant mental demand, that silence isn't a small thing. It's the whole thing.</p><h2>How to Start Without Wasting Money on the Wrong Thing</h2><p>Find a studio that offers small group reformer classes &mdash; ideally with six or fewer people &mdash; and commit to eight sessions before you judge it. The first two will feel confusing. The third will start to click. By the eighth, you'll understand why people talk about it the way they do. This is genuinely how it tends to go.</p>`},
+  "goop":{cat:"Clean Living",title:"We Tried Goop's Wellness Protocols for 30 Days. Here's What Actually Happened",meta:"By Maren Ellis &middot; 7 min read &middot; Wellness &amp; Body",img:"img-rose",ch:"&#10022;",body:`<p>I want to be upfront: I went into this skeptical. Goop &mdash; with its prices, its occasional pseudoscience, and its very particular aesthetic &mdash; has always occupied a complicated place in my mind. I think it is simultaneously worth taking seriously and worth questioning rigorously, which is exactly the spirit in which I tried their current lineup of protocols for thirty days.</p><h2>What I Actually Tried</h2><p>The current Goop wellness framework centers on a few pillars: their supplement line, a morning movement practice, an emphasis on organic whole foods and seed cycling for hormonal support, and their skin protocol. I committed to all of it for thirty days, bought what I needed to buy, and kept notes.</p><h2>The Things That Genuinely Worked</h2><h3>The magnesium supplement</h3><p>I was sleeping better by week two. Genuinely, noticeably better. Magnesium glycinate is not a Goop invention &mdash; it's widely available and well-researched for sleep support &mdash; but I had never been consistent enough with it to feel the effects. Their formula is good. You could also buy magnesium glycinate anywhere for a fraction of the price.</p><h3>The seed cycling practice</h3><p>This one I had written off entirely. The data here is modest, but by week three my premenstrual symptoms were noticeably milder than usual. I kept doing it.</p><h3>The movement protocol</h3><p>Thirty minutes, five days a week, of intentional movement combining flexibility and strength work. By the end of thirty days I felt more at home in my body than I had in years. No caveats here.</p><h2>The Things That Were Mostly Marketing</h2><p>The $98 vitamin C serum performed identically to a $28 alternative. The detox powder made me feel no different than drinking a green smoothie I made myself. And the idea that you need a specialized protocol for hydration &mdash; just drink water &mdash; is the kind of thing that should make you suspicious of any wellness brand.</p><blockquote>"The most valuable thing Goop sells isn't any product. It's the permission to take your own health seriously. That part, you can have for free."</blockquote><p>Thirty days in, I feel better. The lesson: read everything Goop puts out, take the ideas seriously, replicate what you can with less expensive alternatives, and spend the money you save on a really good reformer Pilates class.</p>`},
+  "anti-inflammatory":{cat:"Nutrition",title:"The Anti-Inflammatory Table: Eating for Calm, Clarity, and Real Energy",meta:"By Dr. Sophie Vance &middot; 6 min read &middot; Wellness &amp; Body",img:"img-cream",ch:"&#9671;",body:`<p>The word "anti-inflammatory" has been on every wellness menu for the past five years, to the point where it has nearly lost its meaning. Which is a shame, because the underlying idea &mdash; that what you eat either damps down or amplifies the low-grade inflammation that drives most chronic illness, fatigue, and mood instability &mdash; is one of the most useful frameworks in modern nutritional science.</p><h2>What Inflammation Actually Is and Why It Matters for Women</h2><p>Chronic, low-grade inflammation is a slow, persistent simmer of immune activity your body was never designed to maintain. It's linked to fatigue, brain fog, weight resistance, mood disorders, and hormonal imbalance. Women are disproportionately affected because of the relationship between inflammation and our hormonal cycles.</p><h2>The Foods Worth Building Around</h2><h3>Fatty fish, two to three times a week</h3><p>Salmon, sardines, mackerel. The omega-3 fatty acids they contain are among the most evidence-backed anti-inflammatory compounds in the food supply. Eat the fish.</p><h3>Deeply colored vegetables, every day</h3><p>The pigments that make vegetables dark purple, deep green, vivid red are the compounds that do the anti-inflammatory work. More color, more protection.</p><h3>Olive oil as your primary cooking fat</h3><p>Extra virgin olive oil contains oleocanthal, a compound with anti-inflammatory properties. It also makes everything taste better. Use it generously.</p><h3>Turmeric, with black pepper</h3><p>Black pepper increases the bioavailability of curcumin by 2,000 percent. Add both to soups, roasted vegetables, eggs.</p><blockquote>"Eating for calm isn't about restriction. It's about crowding out the inflammatory foods with so much of the good stuff that there's less room for the bad."</blockquote><p>The goal isn't a perfect plate. It's a general direction. More color, more omega-3s, more fiber, less sugar, less processed oil. Hold that direction loosely, eat food you genuinely enjoy, and let the cumulative effect do the work.</p>`},
+  "year-five":{cat:"Marriage",title:"The Conversations Every Couple Needs to Have Before Year Five",meta:"By Priya Holloway &middot; 8 min read &middot; Relationships &amp; Marriage",img:"img-blush",ch:"&#9825;",body:`<p>In fifteen years of working as a marriage therapist, I have sat with hundreds of couples in the middle of crises that were, almost without exception, preventable. Not because the crises themselves were predictable, but because the underlying disconnects that made those crises catastrophic had been building, quietly and unaddressed, for years.</p><h2>The Money Conversation You're Actually Avoiding</h2><p>Most couples have some version of a money conversation before marriage. Very few have the real one. The real one isn't about the budget or who pays which bill. It's about what money means to each of you &mdash; what it represents, what it triggers, what your parents taught you about it without meaning to. A couple where one person secretly equates financial security with love and the other equates financial generosity with control will fight about money constantly without ever once fighting about money.</p><blockquote>"Every recurring argument in a marriage is a surface argument. The real argument is always about something beneath it &mdash; usually a need that hasn't been named."</blockquote><h2>The Parenting Philosophy You've Only Half-Discussed</h2><p>You may have agreed on whether you want children, how many, and roughly when. What most couples haven't discussed is what kind of parents they actually intend to be &mdash; and specifically, how their own childhoods will inform that, because they will. Discipline approaches. Faith and its role in how children are raised. These conversations are slow and sometimes uncomfortable. Have them before you're sitting across from each other at a pediatrician's office having them for the first time under pressure.</p><h2>What You Each Need That You're Not Asking For</h2><p>After the first year or two of marriage, most people settle into a pattern of either asking for what they need and being told it's too much, or not asking at all and growing quietly resentful. The antidote is a conversation about what you each actually need to feel loved and seen, conducted at a time when no one is already frustrated.</p><h2>The Career and Ambition Conversation</h2><p>People change. The woman who was happy to deprioritize her career in her twenties may feel very differently at thirty-five. Check in on this annually &mdash; not as an audit, but as a genuine question: Is this arrangement still working for both of us? What does the next five years look like if we're being honest?</p>`},
+  "standards":{cat:"Dating &amp; Intention",title:"Dating with Standards: What High-Value Women Know That Others Don't",meta:"By Lena Forrest &middot; 6 min read &middot; Relationships &amp; Marriage",img:"img-sand",ch:"&#9672;",body:`<p>There's a particular kind of exhaustion that comes from spending years in the dating world without a clear sense of what you're actually looking for &mdash; or worse, knowing what you're looking for but consistently talking yourself out of it. "I'm being too picky." "I need to give him more of a chance." These are the sentences women say to themselves right before they invest years in something that was never going to be what they needed.</p><h2>The Difference Between Standards and a Checklist</h2><p>A checklist is a list of attributes: height, income, education level. Checklists are largely useless because they measure the wrong things. The person who checks every box can still make you feel utterly unseen.</p><p>Standards are different. Standards are about how someone treats you, how they show up in difficulty, what they value when it costs them something, whether they're growing. Standards are about the architecture of a person's character rather than the surface features of their profile.</p><blockquote>"You are not too much. You have simply been in rooms designed for smaller versions of yourself."</blockquote><h2>The Non-Negotiables Worth Naming</h2><p>The non-negotiables that actually predict long-term compatibility tend to fall into a few categories: shared values around faith, family, and how you want to live. Emotional maturity. Financial responsibility &mdash; not wealth, but a genuine and stable relationship with money. And the way someone talks about people who aren't in the room. It tells you nearly everything.</p><h2>What Self-Respect Actually Looks Like in Practice</h2><p>It looks like ending a date gracefully when you feel the absence of what you need. It looks like not rearranging your life around someone who hasn't asked for a place in it yet. It looks like being willing to be alone rather than be with someone who makes you feel more alone than solitude does.</p>`},
+  "daughters":{cat:"Family Life",title:"Raising Confident Daughters in an Age That Wants to Confuse Them",meta:"By Kate Brennan &middot; 9 min read &middot; Relationships &amp; Marriage",img:"img-taupe",ch:"&#10059;",body:`<p>My daughter is eleven. She is, as my mother would say, fully herself &mdash; opinionated, funny, direct, secure in a way that I was not at her age and am still working toward at thirty-eight. I am not writing this to tell you I have it figured out. I'm writing it because I spend a lot of time thinking about what it means to raise a girl right now, and the more I talk to other mothers, the more I believe we're all asking the same questions and not getting enough honest answers.</p><h2>Identity Before Opinion</h2><p>The most important thing you can give a daughter before the world gets loud around her is a strong, stable sense of who she is &mdash; separate from what she produces, how she looks, or what anyone thinks of her. This comes first from being known inside your family. From having her ideas taken seriously at the dinner table. From seeing her mother model the kind of woman she's allowed to become.</p><h2>The Body Conversation That Has to Come First</h2><p>Before any other conversation about her body, your daughter needs to hear, clearly and repeatedly, that her body is good and it belongs to her. Not as an object to be perfected or criticized or compared. As a home she lives in. This matters especially in families with a strong wellness culture, which can inadvertently communicate that food and exercise are moral categories. They're not.</p><blockquote>"A girl who knows she is loved unconditionally is much harder to manipulate than one who believes love must be earned."</blockquote><h2>Faith as Foundation, Not Performance</h2><p>For families raising daughters in faith: there is a difference between a faith that roots a child and a faith that is performed for social belonging. Children can feel the difference. The faith that protects a daughter is the one that is genuinely hers &mdash; the one she has questioned and returned to, the one she sees lived out in the texture of her family's daily life.</p><h2>The Conversation About Men You Have to Keep Having</h2><p>Not a lecture. A conversation, and an ongoing one. What she deserves from the men and boys in her life. How to distinguish between someone who values her and someone who values what she offers him. Tell her, specifically and often, what you see in her &mdash; not "you're so pretty" but the particular things. The way she stood up for her friend last week. The question she asked that nobody else thought to ask.</p>`},
+  "neighborhoods":{cat:"Market Report",title:"The Neighborhoods Women Are Quietly Flocking To in 2025",meta:"By Astoria Editors &middot; 10 min read &middot; Real Estate &amp; Home",img:"img-cream",ch:"&#8962;",body:`<p>The post-pandemic migration has settled into something more deliberate. The chaotic "I'll move anywhere with good WiFi" energy of 2020 has given way to a more considered question: Where do I actually want to build my life? And for a specific category of buyer &mdash; educated, values-driven, often with children or planning for them, looking for community as much as real estate &mdash; the answers are clustering around a set of markets that share some interesting characteristics.</p><h2>What "The Right Neighborhood" Actually Means in 2025</h2><p>These buyers are optimizing for something that doesn't show up easily in Zillow filters. They want walkability, but a specific kind. They want excellent public schools but also a school culture that aligns with their values. They want neighbors who are, in some loose sense, like them &mdash; communities with a mix of young families, strong faith communities, and a social fabric dense enough to feel like home.</p><h2>The Markets Worth Watching</h2><h3>Charleston, South Carolina</h3><p>The draw: a genuine sense of community, excellent private school options, a strong faith presence, and a quality of life that is difficult to replicate at any price point in a major coastal city. Inventory remains tight in the most desirable neighborhoods, but the fundamental appeal isn't going anywhere.</p><h3>Brentwood and Franklin, Tennessee</h3><p>The Nashville suburbs have absorbed an enormous amount of migration from California, the Northeast, and the Midwest. The school system is exceptional. The church community is deep and genuine rather than performative. Prices have risen substantially, but the fundamentals support continued demand.</p><h3>Colorado Springs, Colorado</h3><p>What's drawing family buyers specifically is a community infrastructure that is unusually strong: the faith community, the network of private and charter schools, the sense that neighbors know each other. For buyers priced out of Denver proper, it offers a quality of life that is genuinely competitive.</p><blockquote>"The women driving the smartest relocation decisions right now aren't just buying a house. They're buying into a community. The real estate is almost secondary."</blockquote><h2>What to Look for That the Listings Won't Tell You</h2><p>Before you make an offer, spend a Sunday in the neighborhood. Go to a coffee shop and notice who's there. Attend a service at a local church if faith community matters to you. Walk to the nearest park at a time when families would reasonably be there. Talk to people. You will learn more in three hours of this than in three weeks of Zillow browsing.</p>`},
+  "quiet-luxury-home":{cat:"Interior Design",title:"The New Quiet Luxury Home: Build a Space That Actually Restores You",meta:"By Isabelle Clarke &middot; 7 min read &middot; Real Estate &amp; Home",img:"img-sage",ch:"&#9635;",body:`<p>The homes that restore us look different from the homes we think we want when we're scrolling through Instagram at 11 p.m. The homes we pin and save tend toward drama. The homes that actually make us feel better when we walk through the door tend to be quieter than that. More considered. Less performative.</p><h2>The Nervous System Is Your Real Client</h2><p>Your nervous system responds to your environment whether or not you're consciously aware of it. Visual clutter activates threat-detection. Harsh lighting suppresses melatonin and elevates cortisol at hours when both should be dropping. Your home is either working with your biology or against it, regardless of how pretty it looks in photos.</p><h2>The Changes Worth Making First</h2><h3>Lighting before anything else</h3><p>No single change has a higher return on investment in residential interiors than switching from overhead fluorescent lighting to warm, layered light sources at lower heights. Lamps. Sconces. Dimmers on every overhead fixture. The goal is light that mimics late-afternoon sun in the evening hours. Rooms lit this way feel instantly more calming and more beautiful. It costs less than a sofa and transforms a space more than almost anything else.</p><h3>Texture over pattern</h3><p>The homes that feel most restorative tend to be rich in texture and restrained in pattern. Linen, wool, stone, aged wood &mdash; materials that have warmth and variation without visual busyness. A patterned sofa in a small room competes for attention constantly, even when you're not looking at it. A linen sofa in a warm neutral reads as a place to land.</p><h3>The case for negative space</h3><p>American homes tend to be overfurnished and over-accessorized. The homes that feel most luxurious tend to have been edited down. Things removed rather than added.</p><blockquote>"The most restorative room is not the most decorated one. It's the one where everything in it has a reason to be there."</blockquote><h2>The One Room Worth Getting Right First</h2><p>If you are going to invest in making one room a genuine sanctuary, make it your bedroom. This is the room where your body does its most important work: rest, recovery, the hormonal reset that makes everything else function. It should be the coolest room in the house at night. The darkest. The quietest. And it should feel, when you walk into it, like a place you have been gently expected.</p>`},
+  "realtor-questions":{cat:"Investing",title:"First Home or Fifth: The Questions Every Smart Woman Asks Her Realtor",meta:"By Dana Whitmore &middot; 8 min read &middot; Real Estate &amp; Home",img:"img-rose",ch:"&#9634;",body:`<p>Real estate transactions are among the largest financial decisions most people will ever make, and they are conducted in an environment specifically designed to create urgency and suppress deliberation. Everybody in the room has a financial incentive that may or may not align with yours. This is a reason to be prepared.</p><h2>Questions for Your Buyer's Agent</h2><h3>"What's the actual price per square foot for comparable properties sold in the last 90 days?"</h3><p>Not listed. Sold. Listing prices are aspirations. Sale prices are data. Any agent worth working with can pull this in five minutes and should offer it before you make an offer.</p><h3>"Why are the sellers moving?"</h3><p>Motivated sellers negotiate differently than sellers testing the market. Your agent may not always know, but asking the question reveals how much information they've bothered to gather.</p><h3>"What are this neighborhood's long-term trajectory and most significant risk factors?"</h3><p>A good agent has opinions about where neighborhoods are heading and is willing to share them honestly. If they answer every version of this question with unqualified enthusiasm, they're telling you they prioritize the sale over your interests.</p><blockquote>"The right question isn't 'should I buy this house?' It's 'what would I need to know to feel confident about this decision?' Then find out everything on that list."</blockquote><h2>Questions for the Inspection</h2><p>Ask the inspector to walk you through the roof, HVAC, and foundation in plain language. These are the three systems most likely to produce a large, unplanned expense in the first five years. Ask what they'd do if it were their house.</p><h2>The Question Nobody Asks</h2><p>"If I buy this property and need to sell it in three years, what's my realistic outcome?" This forces a realistic conversation about liquidity and market risk that most buyers never have because they're too emotionally invested by the time they're considering an offer. You need to know before the closing, not after.</p>`},
+  "christian-events":{cat:"Christian Life",title:"The Summer Events Redefining What Christian Community Looks Like",meta:"By Rachel Monroe &middot; 5 min read &middot; Faith &amp; Community",img:"img-blush",ch:"&#8224;",body:`<p>Something has shifted in how Christian women in their thirties and forties are choosing to gather. The megachurch model &mdash; large, efficient, anonymizing &mdash; is losing ground to something smaller and more intentional. The women driving this shift are not disenchanted with faith. They are disenchanted with the performance of community: the programmatic small group that never gets past surface-level, the women's event designed to feel inspiring rather than transforming.</p><h2>The Retreat as Spiritual Reset</h2><p>The multi-day retreat has gained significant traction: small by design, immersive, built around silence and Scripture and genuine conversation rather than performance and programming. The common thread in what women report taking away isn't the speaker or the curriculum. It's the relationships formed in the in-between moments &mdash; over meals, on morning walks, in the quiet hours after the formal sessions end.</p><h2>The Rise of the Intimate Dinner</h2><p>In Nashville, in Dallas, in Charleston and Denver and a dozen other cities, a specific format has been quietly proliferating: the dinner hosted by a woman of faith for eight to twelve other women, centered on a real question, in a beautiful space, with real food and no agenda beyond connection. No merchandise. No speaker fee. Just the ancient practice of women gathering around a table to wrestle with something that matters.</p><blockquote>"The most transformative Christian community I've experienced has always happened in rooms small enough that nobody could hide."</blockquote><h2>What to Look for If You're Trying to Find Your People</h2><p>Start locally &mdash; most cities have women's Bible study groups that operate independently of a megachurch structure, often through word of mouth. Ask the women you most admire where they're finding genuine community. Attend one retreat, even if it requires travel, and pay attention to what the experience shows you about what's possible.</p>`},
+  "sabbath":{cat:"Intentional Living",title:"On Sabbath, Silence, and the Radical Act of Resting Well",meta:"By Anna Collins &middot; 7 min read &middot; Faith &amp; Community",img:"img-sand",ch:"&#10022;",body:`<p>I grew up in a home where Sunday was genuinely different from every other day. Slower meals. No errands. A long walk in the afternoon. My father reading in a chair without appearing to feel guilty about it. I didn't have language for what I was experiencing, but I know now that I was watching people practice Sabbath, and that it shaped my understanding of rest in ways I'm still discovering.</p><h2>What Rest Is Not</h2><p>Rest is not the absence of activity. Scrolling your phone for three hours is the absence of activity; it is not rest. Rest, in the rich theological and anthropological sense of the word, is a positive practice. It is the deliberate creation of space for replenishment &mdash; not just of energy, but of perspective, of joy, of the kind of presence that allows you to be genuinely available to the people who need you.</p><h2>The Physiology of Why This Matters</h2><p>The nervous system that drives high performance requires periodic and genuine deactivation to remain functional. People who take genuine weekly rest periods &mdash; not just lower-intensity work, but true disengagement &mdash; outperform their continuously working counterparts on virtually every cognitive and performance measure over time. The Sabbath principle isn't just theological. It's physiological.</p><blockquote>"Rest is not what you do when the work is finished. The work is never finished. Rest is what you choose, in defiance of that fact, because you understand your own humanity."</blockquote><h2>What a Sabbath Practice Can Look Like in a Modern Life</h2><p>It does not require a specific theology. What it requires is a consistent, weekly period &mdash; ideally 24 hours, at minimum a full afternoon and evening &mdash; during which you do not engage in the activities that constitute your work week. No email. No errands that feel like obligations.</p><p>Start small. Choose one afternoon. Protect it as seriously as you protect a meeting that cannot be rescheduled. Notice what it does to the rest of your week. Then expand it slowly as your capacity for rest &mdash; which, like any atrophied muscle, needs to be rebuilt &mdash; grows back.</p>`},
+  "social-circle":{cat:"Social Life",title:"How to Build a Social Circle That Actually Nourishes You",meta:"By Leigh Donovan &middot; 6 min read &middot; Faith &amp; Community",img:"img-sage",ch:"&#9671;",body:`<p>There's a particular kind of loneliness that comes from being surrounded by people. The woman with a full social calendar who drives home from another perfectly pleasant dinner feeling vaguely empty. The one who is technically close with a dozen people and genuinely known by none of them. This is the loneliness epidemic that doesn't make the headlines, because from the outside everything looks fine.</p><h2>Why Most Adult Friendships Stay Surface-Level</h2><p>The friendships that go deep share a few structural features that most adult social arrangements lack. They involve repeated, unplanned interaction &mdash; the kind that happened naturally in school and doesn't happen naturally in a life organized around calendared commitments. They involve some form of shared vulnerability, which can't be scheduled.</p><h2>The Proximity Principle</h2><p>The most reliable predictor of deep friendship in adulthood is proximity &mdash; not just physical proximity, but the regular, low-stakes contact that creates the context for friendship to develop. If you want a richer social life, the answer is less likely to be "meet more people" and more likely to be "create more regular contexts for seeing the same people." Join something. Commit to it for six months. Show up consistently.</p><blockquote>"The deepest friendships in my life formed in moments that looked like nothing &mdash; standing in a parking lot, sitting in the same pew, showing up repeatedly to the same ordinary place."</blockquote><h2>On Being the One Who Goes First</h2><p>Most women in their thirties and forties are waiting for someone else to initiate the kind of friendship they want. Someone has to go first, and in my experience the woman who is willing to be that person &mdash; who is willing to say "I want to know you better" and mean it, who is willing to share something real before the relationship has earned it &mdash; is the one who ends up surrounded by exactly the kind of community she was hoping to find.</p>`}
+};
+
+function openArticle(id){
+  var a=articles[id];
+  if(!a)return;
+  document.getElementById('articleContent').innerHTML=
+    '<div class="article-page-cat">'+a.cat+'</div>'+
+    '<h1 class="article-page-title">'+a.title+'</h1>'+
+    '<div class="article-page-meta">'+a.meta+'</div>'+
+    '<div class="article-page-img '+a.img+'">'+a.ch+'</div>'+
+    '<div class="article-page-body">'+a.body+'</div>';
+  var o=document.getElementById('articleOverlay');
+  o.classList.add('open');
+  o.scrollTop=0;
+  document.body.style.overflow='hidden';
+}
+function closeArticle(){
+  document.getElementById('articleOverlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+document.querySelectorAll('.topic-pill').forEach(function(p){
+  p.addEventListener('click',function(){
+    document.querySelectorAll('.topic-pill').forEach(function(x){x.classList.remove('active');});
+    this.classList.add('active');
+  });
+});
+document.querySelector('.newsletter-btn').addEventListener('click',function(){
+  var input=document.querySelector('.newsletter-input');
+  if(input.value.indexOf('@')>-1){
+    this.textContent='You\'re in';
+    this.style.background='var(--sage)';
+    input.value='';
+  }
+});
+</script>
+</body>
+</html>
