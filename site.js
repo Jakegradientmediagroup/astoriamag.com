@@ -77,6 +77,15 @@ function closeTopic(){
   overlay.classList.remove('open');
   document.body.style.overflow='';
 }
+function copyShareLink(btn){
+  navigator.clipboard.writeText(window.location.href).then(function(){
+    var note = btn.parentElement.querySelector('.share-copied');
+    if(note){
+      note.classList.add('show');
+      setTimeout(function(){note.classList.remove('show');}, 2000);
+    }
+  });
+}
 document.addEventListener('DOMContentLoaded', function(){
   document.querySelectorAll('.topic-pill').forEach(function(p){
     p.addEventListener('click',function(){
@@ -85,15 +94,16 @@ document.addEventListener('DOMContentLoaded', function(){
       openTopic(this.textContent.trim());
     });
   });
-  var newsBtn=document.querySelector('.newsletter-btn');
-  if(newsBtn){
-    newsBtn.addEventListener('click',function(){
-      var input=document.querySelector('.newsletter-input');
-      if(input && input.value.indexOf('@')>-1){
-        this.textContent='You\'re in';
-        this.style.background='var(--sage)';
-        input.value='';
-      }
+  var waitlistForm=document.getElementById('waitlistForm');
+  if(waitlistForm){
+    waitlistForm.addEventListener('submit',function(){
+      var btn=waitlistForm.querySelector('.newsletter-btn');
+      if(btn){btn.disabled=true;btn.textContent='Submitting...';}
+      setTimeout(function(){
+        var success=document.getElementById('newsletterSuccess');
+        if(success) success.style.display='block';
+        waitlistForm.style.display='none';
+      },700);
     });
   }
 });
