@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Astoria | A Magazine for Women</title>
+<link rel="icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="description" content="A magazine for women who live with intention — in wellness, relationships, real estate, and faith. Quiet luxury, deep purpose.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Astoria | A Magazine for Women">
@@ -60,7 +62,7 @@
   <div class="hero-bg-text">A</div>
   <div class="hero-inner">
     <div>
-      <div class="hero-eyebrow">Summer 2025 &nbsp;&middot;&nbsp; The Living Well Issue</div>
+      <div class="hero-eyebrow">Summer 2026 &nbsp;&middot;&nbsp; The Living Well Issue</div>
       <h1 class="hero-headline">The Life You<br>Were <em>Made</em><br>to Live</h1>
       <p class="hero-sub">For women who move with intention &mdash; in their homes, their health, and their faith. Astoria is your guide to a life of quiet luxury and deep purpose.</p>
       <a class="hero-cta" href="/articles/morning-ritual/">Read the Feature</a>
@@ -171,7 +173,7 @@
     </a>
   </div>
 </div>
-<div class="membership">
+<div class="membership" id="membership">
   <div class="membership-inner">
     <div class="membership-eyebrow">Astoria All Access</div>
     <h2 class="membership-title">Read More.<br>Live <em>Better.</em></h2>
@@ -182,7 +184,7 @@
       <div class="membership-card"><div class="membership-card-icon">&#10022; Early Releases</div><h3 class="membership-card-title">First to Know</h3><p class="membership-card-text">New content and the Astoria Edit delivered before the public.</p></div>
       <div class="membership-card"><div class="membership-card-icon">&#10059; Style Guides</div><h3 class="membership-card-title">Personalized Curation</h3><p class="membership-card-text">Seasonal looks, wellness routines, and home guides tailored to your life.</p></div>
     </div>
-    <button class="btn-join">Become a Member</button>
+    <button class="btn-join" onclick="document.getElementById('newsletter').scrollIntoView({behavior:'smooth'})">Join the Waitlist</button>
   </div>
 </div>
 <div class="section" id="faith">
@@ -216,11 +218,13 @@
     <div class="newsletter-eyebrow">The Astoria Letter</div>
     <h2 class="newsletter-title">Join Our Community</h2>
     <div class="gold-divider"></div>
-    <p class="newsletter-sub">Weekly articles, curated reads, and quiet wisdom &mdash; delivered every Thursday morning, before the week gets away from you.</p>
-    <div class="newsletter-form">
-      <input class="newsletter-input" type="email" placeholder="Your email address">
-      <button class="newsletter-btn">Subscribe</button>
-    </div>
+    <p class="newsletter-sub">Weekly articles, curated reads, and quiet wisdom &mdash; delivered every Thursday morning, before the week gets away from you. Sign up below and be first in line for Astoria membership too.</p>
+    <form class="newsletter-form" id="waitlistForm" action="https://docs.google.com/forms/d/e/1FAIpQLSe2-EAG8oVwHVZT-t_Ev0ZhbVaOPthdecUdzYdUaU7BF6aiJw/formResponse" method="POST" target="hidden_iframe">
+      <input class="newsletter-input" type="email" name="entry.684112229" placeholder="Your email address" required>
+      <button class="newsletter-btn" type="submit">Join the List</button>
+    </form>
+    <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" title="hidden"></iframe>
+    <p id="newsletterSuccess" style="display:none;font-size:0.85rem;color:var(--sage);margin-top:0.5rem;">You&#39;re on the list &mdash; we&#39;ll be in touch soon.</p>
   </div>
 </div>
 <footer>
@@ -245,7 +249,7 @@
         <ul class="footer-links">
           <li><a href="#">About Astoria</a></li>
           <li><a href="#">Editors</a></li>
-          <li><a href="#">Membership</a></li>
+          <li><a href="#membership">Membership</a></li>
           <li><a href="#">Advertise</a></li>
           <li><a href="#">Contact</a></li>
         </ul>
@@ -262,8 +266,8 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <span class="footer-copy">&copy; 2025 AstoriaMag.com &middot; All rights reserved</span>
-      <div class="social-links"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Cookies</a></div>
+      <span class="footer-copy">&copy; 2026 AstoriaMag.com &middot; All rights reserved</span>
+      <div class="social-links"><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a><a href="/cookies/">Cookies</a></div>
     </div>
   </div>
 </footer>
