@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What's Your Home Decor Style? | Astoria Magazine</title>
+<meta name="description" content="Answer six quick visual questions and find out which home decor style actually fits you &mdash; Scandinavian, Bohemian, Mediterranean, and more.">
+<link rel="canonical" href="https://astoriamag.com/style-quiz/">
+<link rel="icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="What's Your Home Decor Style? | Astoria Magazine">
+<meta property="og:description" content="Answer six quick visual questions and find out which home decor style actually fits you.">
+<meta property="og:image" content="https://astoriamag.com/images/logo.png">
+<meta property="og:url" content="https://astoriamag.com/style-quiz/">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VEHT85GT2V"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-VEHT85GT2V');
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" href="/">
+      <img src="/images/logo.png" alt="Astoria Magazine" style="height:38px;width:auto;">
+    </a>
+    <div class="nav-links">
+      <a href="/#wellness">Wellness</a>
+      <a href="/#relationships">Relationships</a>
+      <a href="/#realestate">Real Estate</a>
+      <a href="/#faith">Faith &amp; Life</a>
+      <a href="/#style">Style</a>
+    </div>
+    <a class="btn-subscribe" href="/#newsletter" style="text-decoration:none;display:inline-block;">Subscribe</a>
+    <button class="search-btn" onclick="toggleSearch()" aria-label="Search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+    </button>
+    <button class="hamburger" onclick="toggleMobileMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="search-panel" id="searchPanel">
+    <div class="search-panel-inner">
+      <div class="search-input-row">
+        <input class="search-input" id="searchInput" type="text" placeholder="Search articles..." oninput="performSearch()">
+        <button class="search-close" onclick="toggleSearch()">&times;</button>
+      </div>
+      <div class="search-results" id="searchResults"></div>
+    </div>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="/#wellness" onclick="closeMobileMenu()">Wellness</a>
+    <a href="/#relationships" onclick="closeMobileMenu()">Relationships</a>
+    <a href="/#realestate" onclick="closeMobileMenu()">Real Estate</a>
+    <a href="/#faith" onclick="closeMobileMenu()">Faith &amp; Life</a>
+    <a href="/#style" onclick="closeMobileMenu()">Style</a>
+    <a class="btn-subscribe" href="/#newsletter" style="text-decoration:none;display:inline-block;text-align:center;">Subscribe</a>
+  </div>
+</nav>
+<div style="max-width:960px;margin:0 auto;padding:2.5rem 1.5rem 2rem;">
+  <a class="article-back" href="/">&larr; Back to Astoria</a>
+</div>
+<!--
+  Home Decor Style Quiz
+  ----------------------
+  Fully self-contained (HTML + CSS + JS in one file). Drop this file into your
+  existing site (e.g. as /style-quiz.html) and link to it from your nav, or
+  lift the <div id="decor-quiz-app"> element plus the <style> and <script>
+  blocks into an existing page if you'd rather embed it inline.
+
+  Images are hotlinked from Unsplash (free to use under the Unsplash License).
+
+  Note: the responsive grid (4 columns -> 2 on mobile) relies on the page
+  having <meta name="viewport" content="width=device-width, initial-scale=1">
+  in its <head>. Almost every modern site template already has this; if the
+  quiz doesn't shrink to 2 columns on a real phone, check for that tag.
+-->
+<div id="decor-quiz-app" class="dq-root">
+  <div class="dq-card">
+
+    <!-- INTRO SCREEN -->
+    <section class="dq-screen dq-intro" data-screen="intro">
+      <p class="dq-eyebrow">Home Decor Style Quiz</p>
+      <h1>What's Your Decor Style?</h1>
+      <p class="dq-sub">Answer 6 quick visual questions &mdash; pick the lamp, kitchen, or room that speaks to you &mdash; and we'll tell you which decorating style fits you best.</p>
+      <button class="dq-btn dq-btn-primary" data-action="start">Start the Quiz</button>
+    </section>
+
+    <!-- QUIZ SCREEN -->
+    <section class="dq-screen dq-quiz" data-screen="quiz" hidden>
+      <div class="dq-progress-wrap">
+        <div class="dq-progress-bar"><div class="dq-progress-fill" id="dq-progress-fill"></div></div>
+        <p class="dq-progress-label" id="dq-progress-label">Question 1 of 6</p>
+      </div>
+      <h2 id="dq-question-title">Pick a Lamp</h2>
+      <p class="dq-question-sub" id="dq-question-sub">Which one would you actually bring home?</p>
+      <div class="dq-grid" id="dq-options-grid"></div>
+    </section>
+
+    <!-- RESULTS SCREEN -->
+    <section class="dq-screen dq-results" data-screen="results" hidden>
+      <p class="dq-eyebrow">Your Style Is</p>
+      <h1 id="dq-result-name">Scandinavian</h1>
+      <p class="dq-result-tagline" id="dq-result-tagline">Light, calm, and functional.</p>
+      <p class="dq-result-desc" id="dq-result-desc"></p>
+
+      <div class="dq-result-columns">
+        <div>
+          <h3>Signature Elements</h3>
+          <ul class="dq-elements" id="dq-result-elements"></ul>
+        </div>
+        <div>
+          <h3>Your Palette</h3>
+          <div class="dq-palette" id="dq-result-palette"></div>
+        </div>
+      </div>
+
+      <div class="dq-result-runnerup" id="dq-result-runnerup"></div>
+
+      <button class="dq-btn dq-btn-outline" data-action="restart">Retake the Quiz</button>
+    </section>
+
+    <p class="dq-credit">Photos via Unsplash</p>
+  </div>
+</div>
+
+<style>
+  #decor-quiz-app, #decor-quiz-app * { box-sizing: border-box; }
+  #decor-quiz-app {
+    --dq-bg: #faf6f1;
+    --dq-card: #ffffff;
+    --dq-ink: #2f2a26;
+    --dq-ink-soft: #6b6259;
+    --dq-accent: #b5654b;
+    --dq-accent-soft: #f1e4dc;
+    --dq-border: #e8e0d8;
+    --dq-radius: 18px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    color: var(--dq-ink);
+    background: var(--dq-bg);
+    padding: clamp(20px, 5vw, 56px) 16px;
+    display: flex;
+    justify-content: center;
+  }
+  #decor-quiz-app[data-theme-dark] { --dq-bg:#1c1917; --dq-card:#26221f; --dq-ink:#f3ede6; --dq-ink-soft:#c9beb3; --dq-border:#3a342f; --dq-accent-soft:#3a2b24; }
+  @media (prefers-color-scheme: dark) {
+    #decor-quiz-app.dq-auto-dark { --dq-bg:#1c1917; --dq-card:#26221f; --dq-ink:#f3ede6; --dq-ink-soft:#c9beb3; --dq-border:#3a342f; --dq-accent-soft:#3a2b24; }
+  }
+  .dq-card {
+    width: 100%;
+    max-width: 880px;
+    background: var(--dq-card);
+    border: 1px solid var(--dq-border);
+    border-radius: var(--dq-radius);
+    padding: clamp(24px, 4vw, 48px);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .dq-eyebrow {
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--dq-accent);
+    font-weight: 600;
+    margin: 0 0 10px;
+  }
+  #decor-quiz-app h1 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(28px, 4vw, 40px);
+    line-height: 1.15;
+    margin: 0 0 14px;
+  }
+  #decor-quiz-app h2 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(22px, 3.2vw, 28px);
+    margin: 0 0 6px;
+  }
+  #decor-quiz-app h3 {
+    font-size: 15px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--dq-ink-soft);
+    margin: 0 0 12px;
+  }
+  .dq-sub, .dq-question-sub, .dq-result-desc {
+    color: var(--dq-ink-soft);
+    font-size: 16px;
+    line-height: 1.55;
+    max-width: 560px;
+  }
+  .dq-intro { text-align: center; padding: clamp(16px, 3vw, 40px) 0; }
+  .dq-intro .dq-sub { margin: 0 auto 28px; }
+
+  .dq-btn {
+    appearance: none;
+    border: none;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 14px 28px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: transform 0.15s ease, opacity 0.15s ease;
+  }
+  .dq-btn:hover { transform: translateY(-1px); }
+  .dq-btn:active { transform: translateY(0); }
+  .dq-btn-primary { background: var(--dq-accent); color: #fff; }
+  .dq-btn-primary:hover { opacity: 0.92; }
+  .dq-btn-outline { background: transparent; color: var(--dq-accent); border: 1.5px solid var(--dq-accent); margin-top: 28px; }
+
+  .dq-progress-wrap { margin-bottom: 20px; }
+  .dq-progress-bar { height: 6px; border-radius: 4px; background: var(--dq-accent-soft); overflow: hidden; }
+  .dq-progress-fill { height: 100%; background: var(--dq-accent); width: 0%; transition: width 0.35s ease; }
+  .dq-progress-label { font-size: 13px; color: var(--dq-ink-soft); margin: 8px 0 0; }
+
+  .dq-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-top: 20px;
+  }
+  @media (max-width: 720px) { .dq-grid { grid-template-columns: repeat(2, 1fr); } }
+
+  .dq-option {
+    position: relative;
+    border-radius: 14px;
+    overflow: hidden;
+    cursor: pointer;
+    border: 2px solid transparent;
+    background: var(--dq-accent-soft);
+    aspect-ratio: 1 / 1;
+    transition: border-color 0.15s ease, transform 0.15s ease;
+  }
+  .dq-option:hover { transform: scale(1.02); border-color: var(--dq-accent); }
+  .dq-option img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+  }
+  .dq-option.dq-selected { border-color: var(--dq-accent); }
+  .dq-option.dq-selected::after {
+    content: "\2713";
+    position: absolute; top: 8px; right: 8px;
+    width: 24px; height: 24px; border-radius: 50%;
+    background: var(--dq-accent); color: #fff;
+    font-size: 13px; display: flex; align-items: center; justify-content: center;
+  }
+
+  .dq-result-tagline { font-size: 18px; color: var(--dq-accent); font-weight: 600; margin: 0 0 16px; }
+  .dq-result-desc { margin-bottom: 28px; }
+  .dq-result-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    padding-top: 20px;
+    border-top: 1px solid var(--dq-border);
+  }
+  @media (max-width: 620px) { .dq-result-columns { grid-template-columns: 1fr; } }
+  .dq-elements { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .dq-elements li { font-size: 15px; padding-left: 20px; position: relative; color: var(--dq-ink); }
+  .dq-elements li::before { content: "\2014"; position: absolute; left: 0; color: var(--dq-accent); }
+  .dq-palette { display: flex; flex-wrap: wrap; gap: 10px; }
+  .dq-swatch { text-align: center; font-size: 11px; color: var(--dq-ink-soft); }
+  .dq-swatch-color { width: 44px; height: 44px; border-radius: 50%; margin-bottom: 6px; border: 1px solid var(--dq-border); }
+  .dq-result-runnerup { margin-top: 24px; font-size: 14px; color: var(--dq-ink-soft); }
+  .dq-credit { margin: 24px 0 0; text-align: center; font-size: 11px; color: var(--dq-ink-soft); opacity: 0.7; }
+</style>
+
+<script>
+(function () {
+  var STYLE_INFO = {
+    "Midcentury Modern": {
+      tagline: "Clean lines, retro warmth.",
+      description: "You gravitate toward the golden age of design \u2014 tapered legs, warm wood tones, and sculptural shapes that still feel fresh today. Your space balances function and flair without ever feeling fussy.",
+      elements: ["Teak and walnut wood tones", "Tapered, angled furniture legs", "Bold geometric or atomic patterns", "Statement lighting as sculpture"],
+      palette: [["Mustard","#d9a441"],["Burnt Orange","#c1602e"],["Walnut Brown","#6b4a34"],["Olive","#8a8b4e"],["Cream","#f2e9d8"]]
+    },
+    "Bohemian": {
+      tagline: "Layered, global, free-spirited.",
+      description: "Rules are made to be broken in your world. You love mixing patterns, textures, and treasures collected from everywhere \u2014 the result feels lived-in, warm, and entirely your own.",
+      elements: ["Layered rugs and textiles", "Rattan, macrame, and natural fiber", "Abundant plants", "Vintage and global finds"],
+      palette: [["Terracotta","#c1663f"],["Rust","#a34328"],["Deep Teal","#2f5d59"],["Mustard","#d3a136"],["Cream","#f4ead9"]]
+    },
+    "Scandinavian": {
+      tagline: "Light, calm, and functional.",
+      description: "You crave simplicity that still feels warm. Pale wood, soft textiles, and uncluttered rooms let natural light do the talking \u2014 cozy without ever tipping into chaos.",
+      elements: ["Pale wood tones", "White and soft neutral walls", "Simple, functional forms", "Cozy textiles (hygge)"],
+      palette: [["White","#ffffff"],["Pale Oak","#e4d7c3"],["Soft Grey","#c9c6c0"],["Dusty Blue","#a9bcc7"],["Blush","#e8cfc9"]]
+    },
+    "Farmhouse": {
+      tagline: "Rustic charm, modern comfort.",
+      description: "You want a home that feels welcoming the second you walk in. Reclaimed wood, shiplap, and vintage-inspired pieces give your space warmth, history, and easy comfort.",
+      elements: ["Shiplap and reclaimed wood", "Apron-front sinks", "Vintage-inspired fixtures", "Neutral, cozy palette"],
+      palette: [["Cream","#f2ecdf"],["Warm White","#f8f5ef"],["Weathered Brown","#7a5c42"],["Sage","#98a084"],["Black accents","#2b2a28"]]
+    },
+    "California Coastal": {
+      tagline: "Breezy, tailored, sun-soaked.",
+      description: "Your ideal home feels like an endless summer \u2014 light-filled rooms, natural textures, and a palette pulled straight from the shoreline. Relaxed, but never sloppy.",
+      elements: ["Light wood and rattan", "Linen and natural fibers", "Blue, sand, and white palette", "Airy, uncluttered rooms"],
+      palette: [["White","#ffffff"],["Sandy Beige","#e3d3b8"],["Ocean Blue","#5b83a0"],["Seafoam","#b9d3c5"],["Driftwood Grey","#a9a297"]]
+    },
+    "Industrial": {
+      tagline: "Raw, structural, unpolished.",
+      description: "You're drawn to spaces with history \u2014 exposed brick, black metal, and materials that show their age. It's an edited, edgy look that favors substance over polish.",
+      elements: ["Exposed brick and concrete", "Black metal and steel", "Edison-bulb lighting", "Reclaimed, salvaged materials"],
+      palette: [["Charcoal","#3a3a3a"],["Black","#161616"],["Concrete Grey","#9a9691"],["Rust","#8a4a2e"],["Warm Wood","#7a5a3d"]]
+    },
+    "Minimalist": {
+      tagline: "Pared-back and purposeful.",
+      description: "For you, less really is more. Every piece earns its place, clutter is the enemy, and a few well-chosen forms and a tight neutral palette let the architecture shine.",
+      elements: ["Clean, geometric lines", "Monochrome, neutral palette", "Hidden storage, no clutter", "Quality over quantity"],
+      palette: [["White","#ffffff"],["Black","#1c1c1c"],["Warm Grey","#b7b2ab"],["Greige","#cfc7bb"],["Soft Taupe","#ded4c6"]]
+    },
+    "Mediterranean": {
+      tagline: "Warm, textured, sun-drenched.",
+      description: "Your style channels coastal Spain, Italy, and Greece \u2014 terracotta, stucco, wrought iron, and rich color accents that feel both rustic and elegant.",
+      elements: ["Terracotta tile and warm plaster", "Wrought iron details", "Exposed wood beams", "Rich blues and warm earth tones"],
+      palette: [["Terracotta","#bf6a44"],["Ochre","#c9963f"],["Deep Blue","#2d5473"],["Whitewash","#f1ebe0"],["Olive Green","#767b4c"]]
+    }
+  };
+
+  var STYLE_ORDER = ["Midcentury Modern","Bohemian","Scandinavian","Farmhouse","California Coastal","Industrial","Minimalist","Mediterranean"];
+
+  function img(style, id, alt, credit) {
+    return {
+      style: style,
+      url: "https://images.unsplash.com/photo-" + id + "?w=500&q=80&auto=format&fit=crop",
+      alt: alt,
+      credit: credit
+    };
+  }
+
+  // photoId + photographer credit per style, keyed by category
+  var PHOTOS = {
+    "Pick a Lamp": {
+      "Midcentury Modern": ["1621177555630-b861919c864f", "Emilio Garcia"],
+      "Bohemian": ["1578678809569-1a8ead9cb802", "Content Pixie"],
+      "Scandinavian": ["1579326882518-21eaa7893b02", "Ochir-Erdene Oyunmedeg"],
+      "Farmhouse": ["1779978509232-ef12cf96fb5c", "Alexander Mass"],
+      "California Coastal": ["1760204741315-abfc98ce3bf5", "Ruben Aster"],
+      "Industrial": ["1543512214-4f76e81f8bfc", "Grant Ritchie"],
+      "Minimalist": ["1520341043296-d818239f86f2", "Steve A Johnson"],
+      "Mediterranean": ["1771151758395-3fa47143c1e7", "Zeno Hind"]
+    },
+    "Pick a Kitchen": {
+      "Midcentury Modern": ["1764526624453-db32c24eca55", "Clay Banks"],
+      "Bohemian": ["1628797285815-453c1d0d21e3", "Sosey Interiors"],
+      "Scandinavian": ["1665771080265-62e101266dd9", "Bluewater Sweden"],
+      "Farmhouse": ["1682888818602-b4492fadf2f8", "Zac Gudakov"],
+      "California Coastal": ["1769737122085-97b1ee5ab104", "Sayless studios"],
+      "Industrial": ["1739987751931-4008c6bf5bb5", "Jonathan Borba"],
+      "Minimalist": ["1610276173132-c47d148ab626", "Simona Sergi"],
+      "Mediterranean": ["1765421619212-372b859dadf5", "Leonardo Vargas"]
+    },
+    "Pick a Living Room": {
+      "Midcentury Modern": ["1632119580908-ae947d4c7691", "Spacejoy"],
+      "Bohemian": ["1583847268964-b28dc8f51f92", "Minh Pham"],
+      "Scandinavian": ["1610307540583-7472788642d6", "Erika Osberg"],
+      "Farmhouse": ["1600210491892-03d54c0aaf87", "Collov Home Design"],
+      "California Coastal": ["1632210606897-b90ce977f207", "Collov Home Design"],
+      "Industrial": ["1773069459487-3d2d7bb4532e", "Kai Damm-Jonas"],
+      "Minimalist": ["1550581190-9c1c48d21d6c", "Sven Brandsma"],
+      "Mediterranean": ["1672865362670-b22b90b1fb95", "Azzedine Rouichi"]
+    },
+    "Pick a Bedroom": {
+      "Midcentury Modern": ["1686604580343-e560387629c3", "Priscilla Du Preez"],
+      "Bohemian": ["1635286785966-512198a553ca", "Zane Persaud"],
+      "Scandinavian": ["1610307522657-8c0304960189", "Erika Osberg"],
+      "Farmhouse": ["1759139445627-5ce9d5fac8f9", "Clay Banks"],
+      "California Coastal": ["1770414173168-f6c666501225", "amelia elite"],
+      "Industrial": ["1673743795888-d8a08f4e158b", "Jackson Wilson"],
+      "Minimalist": ["1663811397057-8bd306b4dcad", "Bilal Mansuri"],
+      "Mediterranean": ["1722095454514-661600984095", "Annie Spratt"]
+    },
+    "Pick a Front Door": {
+      "Midcentury Modern": ["1757677320215-5907418e6126", "Marius Kriz"],
+      "Bohemian": ["1664360835993-d55aa466668d", "Elio Elio"],
+      "Scandinavian": ["1660361339436-ddd4b85372da", "Bilal Mansuri"],
+      "Farmhouse": ["1782852634404-972610f87807", "Roger Starnes Sr"],
+      "California Coastal": ["1773101883541-42a4881daef3", "Franco Debartolo"],
+      "Industrial": ["1618522786784-88c35429eb7a", "James Kovin"],
+      "Minimalist": ["1622396481322-3b83d186701b", "Kelly Sikkema"],
+      "Mediterranean": ["1759355787174-044355f63c55", "ubeyonroad"]
+    },
+    "Pick a Dining Table": {
+      "Midcentury Modern": ["1770988962875-1a9f50e56eb6", "Clay Banks"],
+      "Bohemian": ["1781262382772-a6f7047fa642", "Puscas Adryan"],
+      "Scandinavian": ["1758977404579-1d9ca0d6dc90", "Costa Live"],
+      "Farmhouse": ["1696814292947-8b6f06af3df2", "Clay Banks"],
+      "California Coastal": ["1773847469674-189153e5e32d", "Clay Banks"],
+      "Industrial": ["1766589152660-897cd4ef5222", "Diego Arenas de Rodrigo"],
+      "Minimalist": ["1594000311835-6d564e5a46b3", "Tabitha Turner"],
+      "Mediterranean": ["1540396515873-dd778f7679e7", "Lindsey LaMont"]
+    }
+  };
+
+  function optionsFor(category) {
+    return STYLE_ORDER.map(function (s) {
+      var p = PHOTOS[category][s];
+      return img(s, p[0], s + " style " + category.replace("Pick a ", "").toLowerCase(), p[1]);
+    });
+  }
+
+  var QUESTIONS = [
+    { category: "Pick a Lamp", prompt: "Which one would you actually bring home?", options: optionsFor("Pick a Lamp") },
+    { category: "Pick a Kitchen", prompt: "Which kitchen would you want to cook in?", options: optionsFor("Pick a Kitchen") },
+    { category: "Pick a Living Room", prompt: "Where would you want to curl up on a Sunday?", options: optionsFor("Pick a Living Room") },
+    { category: "Pick a Bedroom", prompt: "Which bedroom feels the most like 'you'?", options: optionsFor("Pick a Bedroom") },
+    { category: "Pick a Front Door", prompt: "Which entrance would you want to come home to?", options: optionsFor("Pick a Front Door") },
+    { category: "Pick a Dining Table", prompt: "Where would you want to host dinner?", options: optionsFor("Pick a Dining Table") }
+  ];
+
+  var root = document.getElementById("decor-quiz-app");
+  var screens = {};
+  root.querySelectorAll(".dq-screen").forEach(function (el) { screens[el.dataset.screen] = el; });
+
+  var state = { index: 0, scores: {} };
+  STYLE_ORDER.forEach(function (s) { state.scores[s] = 0; });
+
+  function showScreen(name) {
+    Object.keys(screens).forEach(function (key) {
+      screens[key].hidden = key !== name;
+    });
+  }
+
+  function renderQuestion() {
+    var q = QUESTIONS[state.index];
+    document.getElementById("dq-question-title").textContent = q.category;
+    document.getElementById("dq-question-sub").textContent = q.prompt;
+    document.getElementById("dq-progress-label").textContent = "Question " + (state.index + 1) + " of " + QUESTIONS.length;
+    document.getElementById("dq-progress-fill").style.width = ((state.index) / QUESTIONS.length * 100) + "%";
+
+    var grid = document.getElementById("dq-options-grid");
+    grid.innerHTML = "";
+    q.options.forEach(function (opt) {
+      var card = document.createElement("div");
+      card.className = "dq-option";
+      card.setAttribute("role", "button");
+      card.setAttribute("tabindex", "0");
+      card.setAttribute("aria-label", opt.alt);
+      var image = document.createElement("img");
+      image.src = opt.url;
+      image.alt = opt.alt;
+      image.title = "Photo: " + opt.credit + " / Unsplash";
+      image.loading = "lazy";
+      card.appendChild(image);
+      card.addEventListener("click", function () { selectOption(opt.style); });
+      card.addEventListener("keydown", function (e) {
+        if (e.key === "Enter" || e.key === " ") { e.preventDefault(); selectOption(opt.style); }
+      });
+      grid.appendChild(card);
+    });
+  }
+
+  function selectOption(style) {
+    state.scores[style] = (state.scores[style] || 0) + 1;
+    state.index++;
+    if (state.index >= QUESTIONS.length) {
+      renderResults();
+      showScreen("results");
+    } else {
+      renderQuestion();
+    }
+  }
+
+  function renderResults() {
+    var ranked = STYLE_ORDER.slice().sort(function (a, b) { return state.scores[b] - state.scores[a]; });
+    var top = ranked[0];
+    var info = STYLE_INFO[top];
+
+    document.getElementById("dq-result-name").textContent = top;
+    document.getElementById("dq-result-tagline").textContent = info.tagline;
+    document.getElementById("dq-result-desc").textContent = info.description;
+
+    var elementsList = document.getElementById("dq-result-elements");
+    elementsList.innerHTML = "";
+    info.elements.forEach(function (el) {
+      var li = document.createElement("li");
+      li.textContent = el;
+      elementsList.appendChild(li);
+    });
+
+    var paletteWrap = document.getElementById("dq-result-palette");
+    paletteWrap.innerHTML = "";
+    info.palette.forEach(function (p) {
+      var sw = document.createElement("div");
+      sw.className = "dq-swatch";
+      var dot = document.createElement("div");
+      dot.className = "dq-swatch-color";
+      dot.style.background = p[1];
+      var label = document.createElement("div");
+      label.textContent = p[0];
+      sw.appendChild(dot);
+      sw.appendChild(label);
+      paletteWrap.appendChild(sw);
+    });
+
+    var runnerUp = ranked[1];
+    var runnerUpEl = document.getElementById("dq-result-runnerup");
+    if (state.scores[runnerUp] > 0 && state.scores[runnerUp] >= state.scores[top] - 1) {
+      runnerUpEl.textContent = "You also showed strong " + runnerUp + " leanings \u2014 feel free to mix the two.";
+    } else {
+      runnerUpEl.textContent = "";
+    }
+  }
+
+  function restart() {
+    state.index = 0;
+    STYLE_ORDER.forEach(function (s) { state.scores[s] = 0; });
+    showScreen("intro");
+  }
+
+  root.querySelector('[data-action="start"]').addEventListener("click", function () {
+    renderQuestion();
+    showScreen("quiz");
+  });
+  root.querySelector('[data-action="restart"]').addEventListener("click", restart);
+})();
+</script>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand-name">Astoria<span>.</span></div>
+        <p class="footer-brand-desc">A magazine for women who live with intention &mdash; in their bodies, their homes, their faith, and their relationships.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Topics</div>
+        <ul class="footer-links">
+          <li><a href="/#wellness">Wellness &amp; Body</a></li>
+          <li><a href="/#relationships">Relationships</a></li>
+          <li><a href="/#realestate">Real Estate</a></li>
+          <li><a href="/#faith">Faith &amp; Life</a></li>
+          <li><a href="/#style">Style &amp; Beauty</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Magazine</div>
+        <ul class="footer-links">
+          <li><a href="#">About Astoria</a></li>
+          <li><a href="#">Editors</a></li>
+          <li><a href="#">Membership</a></li>
+          <li><a href="#">Advertise</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Follow Along</div>
+        <ul class="footer-links">
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">Pinterest</a></li>
+          <li><a href="#">Substack</a></li>
+          <li><a href="#">TikTok</a></li>
+          <li><a href="#">YouTube</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">&copy; 2026 AstoriaMag.com &middot; All rights reserved</span>
+      <div class="social-links"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Cookies</a></div>
+    </div>
+  </div>
+</footer>
+<script src="/site.js"></script>
+</body>
+</html>
