@@ -34,7 +34,7 @@ function performSearch(){
     return;
   }
   box.innerHTML=matches.map(function(a){
-    return '<a class="search-result-row" href="/articles/'+a.id+'/"><div class="search-result-img"><img src="'+a.img+'" alt=""></div><div><div class="search-result-text-cat">'+a.cat+'</div><div class="search-result-text-title">'+a.title+'</div></div></a>';
+    return '<a class="search-result-row" href="/articles/'+a.id+'/"><div class="search-result-img"><img src="'+a.img+'" alt="'+a.title.replace(/"/g,'&quot;')+'"></div><div><div class="search-result-text-cat">'+a.cat+'</div><div class="search-result-text-title">'+a.title+'</div></div></a>';
   }).join('');
 }
 var topicMap={
@@ -51,7 +51,7 @@ var popularFallback=["morning-ritual","pilates","quiet-luxury-home"];
 function articleCardHtml(id){
   var a=ARTICLES_BY_ID[id];
   if(!a) return '';
-  return '<a class="article-card" href="/articles/'+id+'/"><div class="article-card-img"><img src="'+a.img+'" alt=""></div><div class="article-cat">'+a.cat+'</div><h3 class="article-title">'+a.title+'</h3><p class="article-excerpt">'+a.excerpt+'</p><div class="article-meta">'+a.meta+'</div></a>';
+  return '<a class="article-card" href="/articles/'+id+'/"><div class="article-card-img"><img src="'+a.img+'" alt="'+a.title.replace(/"/g,'&quot;')+'"></div><div class="article-cat">'+a.cat+'</div><h3 class="article-title">'+a.title+'</h3><p class="article-excerpt">'+a.excerpt+'</p><div class="article-meta">'+a.meta+'</div></a>';
 }
 function openTopic(label){
   var overlay=document.getElementById('topicOverlay');
