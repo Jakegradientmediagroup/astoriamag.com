@@ -34,7 +34,7 @@ function performSearch(){
     return;
   }
   box.innerHTML=matches.map(function(a){
-    var imgHtml = a.img ? '<img src="'+a.img+'" alt="'+a.title.replace(/"/g,'&quot;')+'">' : '';
+    var imgHtml = a.img ? '<img src="'+a.img+'" style="width:100%;height:100%;object-fit:cover;display:block;" alt="'+a.title.replace(/"/g,'&quot;')+'">' : '';
     var imgClass = a.img ? '' : ' '+a.placeholderClass;
     var imgContent = a.img ? imgHtml : a.placeholderIcon;
     return '<a class="search-result-row" href="/articles/'+a.id+'/"><div class="search-result-img'+imgClass+'">'+imgContent+'</div><div><div class="search-result-text-cat">'+a.cat+'</div><div class="search-result-text-title">'+a.title+'</div></div></a>';
@@ -55,7 +55,7 @@ function articleCardHtml(id){
   var a=ARTICLES_BY_ID[id];
   if(!a) return '';
   var imgBlock = a.img
-    ? '<img src="'+a.img+'" alt="'+a.title.replace(/"/g,'&quot;')+'">'
+    ? '<img src="'+a.img+'" style="width:100%;height:100%;object-fit:cover;display:block;" alt="'+a.title.replace(/"/g,'&quot;')+'">'
     : a.placeholderIcon;
   var imgClass = a.img ? '' : ' '+a.placeholderClass;
   return '<a class="article-card" href="/articles/'+id+'/"><div class="article-card-img'+imgClass+'">'+imgBlock+'</div><div class="article-cat">'+a.cat+'</div><h3 class="article-title">'+a.title+'</h3><p class="article-excerpt">'+a.excerpt+'</p><div class="article-meta">'+a.meta+'</div></a>';
