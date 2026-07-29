@@ -439,5 +439,11 @@
   </div>
 </div>
 <script src="/site.js"></script>
+<script>
+  document.getElementById('waitlistForm').addEventListener('submit', function() {
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({'event': 'generate_lead'});
+  });
+</script>
 </body>
 </html>
