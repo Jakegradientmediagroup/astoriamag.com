@@ -116,6 +116,19 @@ function copyShareLink(btn){
     }
   });
 }
+function rotateCategorySection(containerId, categoryKey, count, excludeId){
+  var container = document.getElementById(containerId);
+  if(!container) return;
+  var pool = (topicMap[categoryKey] || []).filter(function(id){ return id !== excludeId; });
+  if(pool.length === 0) return;
+  var dayIndex = Math.floor(Date.now() / 86400000);
+  var html = '';
+  for(var i = 0; i < Math.min(count, pool.length); i++){
+    var pick = pool[(dayIndex + i) % pool.length];
+    html += articleCardHtml(pick);
+  }
+  container.innerHTML = html;
+}
 function rotateHero(){
   var card = document.getElementById('heroFeaturedCard');
   if(!card) return;
@@ -151,6 +164,8 @@ document.addEventListener('DOMContentLoaded', function(){
   handleNavScroll();
   window.addEventListener('scroll', handleNavScroll);
   rotateHero();
+  rotateCategorySection('rotateWellness', 'Wellness & Body', 3, 'morning-ritual');
+  rotateCategorySection('rotateRelationships', 'Relationships', 3, null);
   document.querySelectorAll('.topic-pill').forEach(function(p){
     p.addEventListener('click',function(){
       document.querySelectorAll('.topic-pill').forEach(function(x){x.classList.remove('active');});
