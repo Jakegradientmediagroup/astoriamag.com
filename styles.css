@@ -175,5 +175,5 @@ footer{background:var(--espresso);border-top:0.5px solid rgba(250,247,242,0.1);p
 .share-btn svg{width:12px;height:12px}
 .share-copied{font-size:0.72rem;color:var(--sage);margin-left:0.25rem;opacity:0;transition:opacity 0.2s}
 .share-copied.show{opacity:1}
-@media(max-width:900px){.hero-inner{grid-template-columns:1fr}.hero-featured-card{display:none}.article-grid{grid-template-columns:1fr 1fr}.featured-strip-inner{grid-template-columns:1fr}.footer-top{grid-template-columns:1fr 1fr}.nav-links{display:none}.hamburger{display:flex}}
+@media(max-width:900px){.hero-inner{grid-template-columns:1fr}.article-grid{grid-template-columns:1fr 1fr}.featured-strip-inner{grid-template-columns:1fr}.footer-top{grid-template-columns:1fr 1fr}.nav-links{display:none}.hamburger{display:flex}}
 @media(max-width:600px){.article-grid{grid-template-columns:1fr}.membership-cards{grid-template-columns:1fr}.hero-headline{font-size:2.4rem}.article-page-title{font-size:1.9rem}.related-grid{grid-template-columns:1fr}}
