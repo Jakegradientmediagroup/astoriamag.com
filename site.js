@@ -60,7 +60,7 @@ function performSearch(){
     var imgHtml = a.img ? '<img src="'+a.img+'" style="width:100%;height:100%;object-fit:cover;display:block;" alt="'+a.title.replace(/"/g,'&quot;')+'">' : '';
     var imgClass = a.img ? '' : ' '+a.placeholderClass;
     var imgContent = a.img ? imgHtml : a.placeholderIcon;
-    return '<a class="search-result-row" href="/articles/'+a.id+'/#disqus_thread"><div class="search-result-img'+imgClass+'">'+imgContent+'</div><div><div class="search-result-text-cat">'+a.cat+'</div><div class="search-result-text-title">'+a.title+'</div></div></a>';
+    return '<a class="search-result-row" href="/articles/'+a.id+'/"><div class="search-result-img'+imgClass+'">'+imgContent+'</div><div><div class="search-result-text-cat">'+a.cat+'</div><div class="search-result-text-title">'+a.title+'</div></div></a>';
   }).join('');
 }
 var topicMap={
@@ -81,7 +81,7 @@ function articleCardHtml(id){
     ? '<img src="'+a.img+'" style="width:100%;height:100%;object-fit:cover;display:block;" alt="'+a.title.replace(/"/g,'&quot;')+'">'
     : a.placeholderIcon;
   var imgClass = a.img ? '' : ' '+a.placeholderClass;
-  return '<a class="article-card" href="/articles/'+id+'/#disqus_thread"><div class="article-card-img'+imgClass+'">'+imgBlock+'</div><div class="article-cat">'+a.cat+'</div><h3 class="article-title">'+a.title+'</h3><p class="article-excerpt">'+a.excerpt+'</p><div class="article-meta">'+a.meta+'</div></a>';
+  return '<a class="article-card" href="/articles/'+id+'/"><div class="article-card-img'+imgClass+'">'+imgBlock+'</div><div class="article-cat">'+a.cat+'</div><h3 class="article-title">'+a.title+'</h3><p class="article-excerpt">'+a.excerpt+'</p><div class="article-meta">'+a.meta+'</div></a>';
 }
 function openTopic(label){
   var overlay=document.getElementById('topicOverlay');
@@ -135,7 +135,7 @@ function rotateHero(){
   var dayIndex = Math.floor(Date.now() / 86400000);
   var pick = ARTICLES_INDEX[dayIndex % ARTICLES_INDEX.length];
   if(!pick) return;
-  var href = '/articles/' + pick.id + '/#disqus_thread';
+  var href = '/articles/' + pick.id + '/';
   card.setAttribute('href', href);
   var cta = document.getElementById('heroCta');
   if(cta) cta.setAttribute('href', href);
